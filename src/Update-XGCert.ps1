@@ -105,6 +105,7 @@ $SMTPServer = "smtp.domain.name"
 <#
 == Healthchecks.io Ping Variables ==
 $HC-PingURL - HC Ping URL to ping the configured Check
+https://hc-ping.com/<UUID / Ping Key + Slug>
 #>
 $HC-PingURL = "https://hc-ping.com/<UUID / Ping Key + Slug>"
 
