@@ -64,7 +64,8 @@ Param(
     [switch]$NoRuleCheck,
     [switch]$DeleteCert,
     [switch]$DryRun,
-    [switch]$SendMail
+    [switch]$SendMail,
+    [switch]$HCPing
 )
 
 
@@ -106,7 +107,6 @@ $SMTPServer = "smtp.domain.name"
 $HC-PingURL - HC Ping URL to ping the configured Check
 #>
 $HC-PingURL = "https://hc-ping.com/<UUID / Ping Key + Slug>"
-$HC-PingDefault = "https://hc-ping.com/<UUID / Ping Key + Slug>" # used to detect if user has changed the default value
 
 # End Of Script Variables
 # -------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ function HC-Ping {
     param (
         [string]$ErrorText = ""
     )
-    if ($HC-PingURL -and $HC-PingURL -ne $HC-PingDefault -and $HC-PingURL -notmatch "<UUID / Ping Key") {
+    if ($HCPing -and $HC-PingURL -and $HC-PingURL -notmatch "<UUID / Ping Key") {
         try {
             if ($ErrorText) {
                 Invoke-WebRequest -Uri $HC-PingURL -Method POST -Body $ErrorText | Out-Null
@@ -137,7 +137,7 @@ function HC-Ping {
             Write-Log "HC-Ping error: $($_.Exception.Message)"
         }
     } else {
-        Write-Log "HC-Ping is not configured."
+        Write-Log "HC-Ping skipped (not configured or switch not set)."
     }
 }
 
