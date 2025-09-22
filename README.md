@@ -11,6 +11,15 @@ Unless you are a small business or home user of Sophos XG who wants to automate 
 * [PowerShell 7]( https://github.com/PowerShell/PowerShell/releases/latest)
 * [Certify The Web](https://certifytheweb.com/)
 * A desire to stop manually updating [Let’s Encrypt](https://letsencrypt.org/) certificates.
+## Attribution
+
+This project is based on the original work by **Paravantage, LLC** and **Gary Parr**. The original source code was published under the GNU General Public License v3.0 and can be found at:
+
+**Original Repository:** [Paravantage/Update-XGCert](https://github.com/Paravantage/Update-XGCert)
+
+Copyright (C) 2021 Paravantage, LLC
+
+This repository maintains the same GPL v3.0 license as the original work. We acknowledge and thank the original authors for making this valuable automation tool available to the community.
 ## A Bit More Detail
 Sometimes whoever manages XG in a small business or home office just doesn't have time to maintain all the random pet projects they once did. Or perhaps these people are tired of trying to remember why they created a bash script 3 years ago that almost looks like it isn't doing anything useful anymore. Almost. Sometimes these people simply want a point-and-click method to make things *just work* using their daily driver OS.
 
