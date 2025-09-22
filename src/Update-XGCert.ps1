@@ -101,6 +101,13 @@ $MailFrom = "Some User some.user@domain.name"
 $MailTo = "Another User another.user@domain.name"
 $SMTPServer = "smtp.domain.name"
 
+<#
+== Healthchecks.io Ping Variables ==
+$HC-PingURL - HC Ping URL to ping the configured Check
+#>
+$HC-PingURL = "https://hc-ping.com/<UUID / Ping Key + Slug>"
+$HC-PingDefault = "https://hc-ping.com/<UUID / Ping Key + Slug>" # used to detect if user has changed the default value
+
 # End Of Script Variables
 # -------------------------------------------------------------------------------------
 
@@ -113,6 +120,25 @@ function Write-Log {
     $logMsg = "$(-Not $SkipStamp ? "$(get-date -format u) : ": '')$MSG"
     $script:RunningLog += $logMsg
     Add-Content $LogFile -Value $logMsg
+}
+
+function HC-Ping {
+    param (
+        [string]$ErrorText = ""
+    )
+    if ($HC-PingURL -and $HC-PingURL -ne $HC-PingDefault -and $HC-PingURL -notmatch "<UUID / Ping Key") {
+        try {
+            if ($ErrorText) {
+                Invoke-WebRequest -Uri $HC-PingURL -Method POST -Body $ErrorText | Out-Null
+            } else {
+                Invoke-WebRequest -Uri $HC-PingURL -Method GET | Out-Null
+            }
+        } catch {
+            Write-Log "HC-Ping error: $($_.Exception.Message)"
+        }
+    } else {
+        Write-Log "HC-Ping is not configured."
+    }
 }
 
 # Tests to see if a cert exists within XG
